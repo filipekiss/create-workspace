@@ -1,0 +1,238 @@
+#!/usr/bin/env node
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading wasm modules
+/******/ 	var installedWasmModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// object with all compiled WebAssembly.Modules
+/******/ 	__webpack_require__.w = {};
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./bin/drew.js":
+/*!*********************!*\
+  !*** ./bin/drew.js ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nvar _meow = _interopRequireDefault(__webpack_require__(/*! meow */ \"meow\"));\n\nvar _log = _interopRequireDefault(__webpack_require__(/*! ../utils/log */ \"./utils/log.js\"));\n\nvar _jonathan = _interopRequireDefault(__webpack_require__(/*! ../bootstrap/jonathan */ \"./bootstrap/jonathan.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar cli = (0, _meow.default)(\"\\n    USAGE:\\n\\n    $ yarn create @filipekiss/webpack-sass\\n        \", {\n  autoVersion: false\n});\nvar projectPath = cli.input[0];\n\nif (cli.flags.version) {\n  console.log(\" \".concat(cli.pkg.name));\n\n  _log.default.info(\" Version: \".concat(cli.pkg.version));\n\n  process.exit(0);\n}\n\ntry {\n  var cwd = process.cwd();\n  var builder = new _jonathan.default(projectPath, cli.flags);\n  builder.makeProject(projectPath, cwd);\n} catch (err) {\n  _log.default.error(err.message);\n\n  process.exit(1);\n}\n\n//# sourceURL=webpack:///./bin/drew.js?");
+
+/***/ }),
+
+/***/ "./bootstrap/jonathan.js":
+/*!*******************************!*\
+  !*** ./bootstrap/jonathan.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.default = void 0;\n\nvar _path = _interopRequireDefault(__webpack_require__(/*! path */ \"path\"));\n\nvar _os = _interopRequireDefault(__webpack_require__(/*! os */ \"os\"));\n\nvar _listr = _interopRequireDefault(__webpack_require__(/*! listr */ \"listr\"));\n\nvar _chalk = _interopRequireDefault(__webpack_require__(/*! chalk */ \"chalk\"));\n\nvar _execa = _interopRequireDefault(__webpack_require__(/*! execa */ \"execa\"));\n\nvar _fsExtra = _interopRequireDefault(__webpack_require__(/*! fs-extra */ \"fs-extra\"));\n\nvar _log = _interopRequireDefault(__webpack_require__(/*! ../utils/log */ \"./utils/log.js\"));\n\nvar _workspace = _interopRequireDefault(__webpack_require__(/*! ../static/workspace */ \"./static/workspace.json\"));\n\nvar _templateObject = /*#__PURE__*/ _taggedTemplateLiteral([\"Creating Workspace at {green \", \"}\"]);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nvar Jonathan =\n/*#__PURE__*/\nfunction () {\n  function Jonathan() {\n    var projectPath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;\n    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};\n\n    _classCallCheck(this, Jonathan);\n\n    if (projectPath) {\n      return;\n    }\n\n    throw new Error('You need to specify the path to install the project');\n  }\n\n  _createClass(Jonathan, [{\n    key: \"isSafeToCreateProjectIn\",\n    value: function isSafeToCreateProjectIn(root, name) {\n      var validFiles = ['.DS_Store', 'Thumbs.db', '.git', '.gitignore', '.idea', 'README.md', 'LICENSE', 'web.iml', '.hg', '.hgignore', '.hgcheck', '.npmignore', 'mkdocs.yml', 'docs', '.travis.yml', '.gitlab-ci.yml', '.gitattributes'];\n\n      var conflicts = _fsExtra.default.readdirSync(root).filter(function (file) {\n        return !validFiles.includes(file);\n      });\n\n      if (conflicts.length > 0) {\n        _log.default.warning(\"The directory \".concat(_chalk.default.green(name), \" contains files that could conflict:\"));\n\n        console.log();\n        var _iteratorNormalCompletion = true;\n        var _didIteratorError = false;\n        var _iteratorError = undefined;\n\n        try {\n          for (var _iterator = conflicts[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {\n            var file = _step.value;\n            console.log(\"  \".concat(file));\n          }\n        } catch (err) {\n          _didIteratorError = true;\n          _iteratorError = err;\n        } finally {\n          try {\n            if (!_iteratorNormalCompletion && _iterator.return != null) {\n              _iterator.return();\n            }\n          } finally {\n            if (_didIteratorError) {\n              throw _iteratorError;\n            }\n          }\n        }\n\n        console.log();\n        return false;\n      }\n\n      return true;\n    }\n  }, {\n    key: \"makeProject\",\n    value: function makeProject(at, from) {\n      var root = _path.default.resolve(at);\n\n      var appName = _path.default.basename(root);\n\n      _fsExtra.default.ensureDirSync(root);\n\n      if (!this.isSafeToCreateProjectIn(root, appName)) {\n        throw new Error('Either try using a new directory name, or remove the files listed above.');\n      }\n\n      var packageJson = {\n        name: appName,\n        version: '0.1.0',\n        private: true\n      };\n\n      _fsExtra.default.writeFileSync(_path.default.join(root, 'package.json'), JSON.stringify(Object.assign(packageJson, _workspace.default), null, 2) + _os.default.EOL);\n\n      if (!_fsExtra.default.existsSync(\"\".concat(root, \"/.git\"))) {\n        _execa.default.sync('git', ['init'], {\n          cwd: root\n        });\n      }\n\n      var installTask = new _listr.default([{\n        title: (0, _chalk.default)(_templateObject, root),\n        task: function task() {\n          return new _listr.default([{\n            title: 'Installing dependencies',\n            task: function task() {\n              return _execa.default.stdout('yarnpkg', {\n                cwd: root\n              });\n            }\n          }, {\n            title: 'Basic .gitignore',\n            task: function task() {\n              return new Promise(function (resolve, reject) {\n                try {\n                  _fsExtra.default.ensureFileSync(\"\".concat(root, \"/.gitignore\"));\n\n                  var ignored = Array.from(_fsExtra.default.readFileSync(\"\".concat(root, \"/.gitignore\"), 'utf8').split('\\n'));\n                  var ignorables = ['dist', 'node_modules', 'yarn.lock'];\n                  var missingIgnorables = ignorables.filter(function (ignorable) {\n                    return !ignored.includes(ignorable);\n                  });\n                  missingIgnorables.forEach(function (ignorable) {\n                    _fsExtra.default.appendFileSync(\"\".concat(root, \"/.gitignore\"), ignorable + _os.default.EOL, function (err) {\n                      if (err) throw err;\n                    });\n                  });\n                  resolve();\n                } catch (err) {\n                  reject(err);\n                }\n              });\n            }\n          }, {\n            title: 'Initial Commit!',\n            task: function task() {\n              return new Promise(function (resolve, reject) {\n                try {\n                  _execa.default.sync('git', ['add', '.'], {\n                    cwd: root\n                  });\n\n                  _execa.default.sync('git', ['add', '.gitignore'], {\n                    cwd: root\n                  });\n\n                  _execa.default.sync('git', ['commit', '--no-gpg-sign', '--no-verify', '--message', 'Initial Commit :tada:'], {\n                    cwd: root\n                  });\n\n                  resolve();\n                } catch (err) {\n                  reject(err);\n                }\n              });\n            }\n          }]);\n        }\n      }, {\n        title: 'Configuring Webpack',\n        task: function task() {\n          return _fsExtra.default.copy(\"\".concat(from, \"/src/static/webpack.config.babel.js\"), \"\".concat(root, \"/webpack.config.babel.js\"));\n        }\n      }], {\n        concurrent: true\n      });\n      installTask.run().then(function () {\n        _log.default.success('Done!');\n      });\n    }\n  }]);\n\n  return Jonathan;\n}();\n\nvar _default = Jonathan;\nexports.default = _default;\n\n//# sourceURL=webpack:///./bootstrap/jonathan.js?");
+
+/***/ }),
+
+/***/ "./static/workspace.json":
+/*!*******************************!*\
+  !*** ./static/workspace.json ***!
+  \*******************************/
+/*! exports provided: devDependencies, scripts, xo, babel, prettier, dependencies, default */
+/***/ (function(module) {
+
+eval("module.exports = {\"devDependencies\":{\"@babel/core\":\"^7.0.0-beta.44\",\"@babel/preset-env\":\"^7.0.0-beta.44\",\"@babel/register\":\"^7.0.0-beta.44\",\"babel-loader\":\"^8.0.0-beta\",\"concurrently\":\"^3.5.1\",\"node-sass\":\"^4.8.3\",\"webpack\":\"^4.6.0\",\"webpack-cli\":\"^2.0.15\",\"webpack-manifest-plugin\":\"^2.0.1\",\"xo\":\"^0.20.3\"},\"scripts\":{\"start\":\"concurrently -p \\\"[{name}]\\\" -n \\\"scripts,styles \\\" -c \\\"bgBlue.bold,bgMagenta.bold\\\" \\\"yarn run scripts:watch\\\" \\\"yarn run styles:watch\\\"\",\"styles:watch\":\"node-sass --watch src/styles --output dist/styles --source-comments --recursive\",\"scripts:watch\":\"webpack --mode development --watch\",\"lint\":\"xo --fix\"},\"xo\":{\"prettier\":true},\"babel\":{\"presets\":[\"@babel/preset-env\"]},\"prettier\":{\"useTabs\":false,\"tabWidth\":4,\"semi\":true,\"singleQuote\":true,\"trailingComma\":\"es5\"},\"dependencies\":{}};\n\n//# sourceURL=webpack:///./static/workspace.json?");
+
+/***/ }),
+
+/***/ "./utils/log.js":
+/*!**********************!*\
+  !*** ./utils/log.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.default = void 0;\n\nvar _chalk = _interopRequireDefault(__webpack_require__(/*! chalk */ \"chalk\"));\n\nvar _logSymbols = _interopRequireDefault(__webpack_require__(/*! log-symbols */ \"log-symbols\"));\n\nvar _templateObject = /*#__PURE__*/ _taggedTemplateLiteral([\" {red \", \"} \", \"\"]),\n    _templateObject2 = /*#__PURE__*/ _taggedTemplateLiteral([\" {blue \", \"} \", \"\"]),\n    _templateObject3 = /*#__PURE__*/ _taggedTemplateLiteral([\" {yellow \", \"} \", \"\"]),\n    _templateObject4 = /*#__PURE__*/ _taggedTemplateLiteral([\" {green \", \"} \", \"\"]);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }\n\nvar _default = {\n  error: function error(message) {\n    console.error((0, _chalk.default)(_templateObject, _logSymbols.default.error, message));\n  },\n  info: function info(message) {\n    console.log((0, _chalk.default)(_templateObject2, _logSymbols.default.info, message));\n  },\n  warning: function warning(message) {\n    console.log((0, _chalk.default)(_templateObject3, _logSymbols.default.warning, message));\n  },\n  success: function success(message) {\n    console.log((0, _chalk.default)(_templateObject4, _logSymbols.default.success, message));\n  }\n};\nexports.default = _default;\n\n//# sourceURL=webpack:///./utils/log.js?");
+
+/***/ }),
+
+/***/ 0:
+/*!******************************************!*\
+  !*** multi babel-polyfill ./bin/drew.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("__webpack_require__(/*! babel-polyfill */\"babel-polyfill\");\nmodule.exports = __webpack_require__(/*! ./bin/drew.js */\"./bin/drew.js\");\n\n\n//# sourceURL=webpack:///multi_babel-polyfill_./bin/drew.js?");
+
+/***/ }),
+
+/***/ "babel-polyfill":
+/*!*********************************!*\
+  !*** external "babel-polyfill" ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"babel-polyfill\");\n\n//# sourceURL=webpack:///external_%22babel-polyfill%22?");
+
+/***/ }),
+
+/***/ "chalk":
+/*!************************!*\
+  !*** external "chalk" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"chalk\");\n\n//# sourceURL=webpack:///external_%22chalk%22?");
+
+/***/ }),
+
+/***/ "execa":
+/*!************************!*\
+  !*** external "execa" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"execa\");\n\n//# sourceURL=webpack:///external_%22execa%22?");
+
+/***/ }),
+
+/***/ "fs-extra":
+/*!***************************!*\
+  !*** external "fs-extra" ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"fs-extra\");\n\n//# sourceURL=webpack:///external_%22fs-extra%22?");
+
+/***/ }),
+
+/***/ "listr":
+/*!************************!*\
+  !*** external "listr" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"listr\");\n\n//# sourceURL=webpack:///external_%22listr%22?");
+
+/***/ }),
+
+/***/ "log-symbols":
+/*!******************************!*\
+  !*** external "log-symbols" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"log-symbols\");\n\n//# sourceURL=webpack:///external_%22log-symbols%22?");
+
+/***/ }),
+
+/***/ "meow":
+/*!***********************!*\
+  !*** external "meow" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"meow\");\n\n//# sourceURL=webpack:///external_%22meow%22?");
+
+/***/ }),
+
+/***/ "os":
+/*!*********************!*\
+  !*** external "os" ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"os\");\n\n//# sourceURL=webpack:///external_%22os%22?");
+
+/***/ }),
+
+/***/ "path":
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"path\");\n\n//# sourceURL=webpack:///external_%22path%22?");
+
+/***/ })
+
+/******/ });
