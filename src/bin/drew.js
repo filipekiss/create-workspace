@@ -23,8 +23,9 @@ if (cli.flags.version) {
 
 try {
     const cwd = process.cwd();
+    const skeletonLocation = __dirname;
     const builder = new Jonathan(projectPath, cli.flags);
-    builder.makeProject(projectPath, cwd);
+    builder.makeProject(projectPath, skeletonLocation);
 } catch (err) {
     log.error(err.message);
     process.exit(1);
