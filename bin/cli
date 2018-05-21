@@ -125,39 +125,39 @@ exports.default = _default;
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
+
+/***/ }),
+/* 3 */
 /***/ (function(module) {
 
 module.exports = {"devDependencies":{"@babel/core":"^7.0.0-beta.44","@babel/preset-env":"^7.0.0-beta.44","@babel/register":"^7.0.0-beta.44","babel-loader":"^8.0.0-beta","concurrently":"^3.5.1","node-sass":"^4.8.3","webpack":"^4.6.0","webpack-cli":"^2.0.15","webpack-manifest-plugin":"^2.0.1","xo":"^0.20.3"},"scripts":{"start":"concurrently -p \"[{name}]\" -n \"scripts,styles \" -c \"bgBlue.bold,bgMagenta.bold\" \"yarn run scripts:watch\" \"yarn run styles:watch\"","styles:watch":"node-sass --watch src/styles --output dist/styles --source-comments --recursive","scripts:watch":"webpack --mode development --watch","lint":"xo --fix"},"xo":{"prettier":true},"babel":{"presets":["@babel/preset-env"]},"prettier":{"useTabs":false,"tabWidth":4,"semi":true,"singleQuote":true,"trailingComma":"es5"},"dependencies":{}};
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs-extra");
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("execa");
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("listr");
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("os");
-
-/***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("os");
 
 /***/ }),
 /* 8 */
@@ -171,21 +171,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _path = _interopRequireDefault(__webpack_require__(7));
+var _path = _interopRequireDefault(__webpack_require__(2));
 
-var _os = _interopRequireDefault(__webpack_require__(6));
+var _os = _interopRequireDefault(__webpack_require__(7));
 
-var _listr = _interopRequireDefault(__webpack_require__(5));
+var _listr = _interopRequireDefault(__webpack_require__(6));
 
 var _chalk = _interopRequireDefault(__webpack_require__(0));
 
-var _execa = _interopRequireDefault(__webpack_require__(4));
+var _execa = _interopRequireDefault(__webpack_require__(5));
 
-var _fsExtra = _interopRequireDefault(__webpack_require__(3));
+var _fsExtra = _interopRequireDefault(__webpack_require__(4));
 
 var _log = _interopRequireDefault(__webpack_require__(1));
 
-var _workspace = _interopRequireDefault(__webpack_require__(2));
+var _workspace = _interopRequireDefault(__webpack_require__(3));
 
 var _templateObject = /*#__PURE__*/ _taggedTemplateLiteral(["Creating Workspace at {green ", "}"]);
 
@@ -380,7 +380,9 @@ module.exports = require("meow");
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {
+
+
+var _path = _interopRequireDefault(__webpack_require__(2));
 
 var _meow = _interopRequireDefault(__webpack_require__(10));
 
@@ -405,7 +407,9 @@ if (cli.flags.version) {
 
 try {
   var cwd = process.cwd();
-  var skeletonLocation = __dirname;
+
+  var skeletonLocation = _path.default.resolve(__dirname, '../');
+
   var builder = new _jonathan.default(projectPath, cli.flags);
   builder.makeProject(projectPath, skeletonLocation);
 } catch (err) {
@@ -413,7 +417,6 @@ try {
 
   process.exit(1);
 }
-/* WEBPACK VAR INJECTION */}.call(this, "/"))
 
 /***/ }),
 /* 12 */
