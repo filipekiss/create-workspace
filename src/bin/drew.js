@@ -1,3 +1,4 @@
+import path from 'path';
 import meow from 'meow';
 import log from '../utils/log';
 import Jonathan from '../bootstrap/jonathan';
@@ -23,7 +24,7 @@ if (cli.flags.version) {
 
 try {
     const cwd = process.cwd();
-    const skeletonLocation = __dirname;
+    const skeletonLocation = path.resolve(__dirname, '../');
     const builder = new Jonathan(projectPath, cli.flags);
     builder.makeProject(projectPath, skeletonLocation);
 } catch (err) {

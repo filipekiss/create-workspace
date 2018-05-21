@@ -23,6 +23,9 @@ export default {
         cli: ['babel-polyfill', './bin/drew.js'],
     },
     target: 'node',
+    node: {
+        __dirname: false,
+    },
     externals: nodeModules,
     module: {
         rules: [
