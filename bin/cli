@@ -380,7 +380,7 @@ module.exports = require("meow");
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(__dirname) {
 
 var _meow = _interopRequireDefault(__webpack_require__(10));
 
@@ -405,13 +405,15 @@ if (cli.flags.version) {
 
 try {
   var cwd = process.cwd();
+  var skeletonLocation = __dirname;
   var builder = new _jonathan.default(projectPath, cli.flags);
-  builder.makeProject(projectPath, cwd);
+  builder.makeProject(projectPath, skeletonLocation);
 } catch (err) {
   _log.default.error(err.message);
 
   process.exit(1);
 }
+/* WEBPACK VAR INJECTION */}.call(this, "/"))
 
 /***/ }),
 /* 12 */
