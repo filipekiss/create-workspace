@@ -1,6 +1,6 @@
 {
     "name": "@filipekiss/create-workspace",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "A simple project kickstarter using Webpack and Node Sass",
     "repository": "https://github.com/filipekiss/create-workspace",
     "author": "Filipe Kiss <eu@filipekiss.com.br>",
